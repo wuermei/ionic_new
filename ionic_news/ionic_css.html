@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="wem">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width"/>
+<title>IONIC初学</title>
+</head>
+<!-- ionic的框架 -->
+<script src="js/ionic.bundle.js"></script>
+<!-- ionic的样式 -->
+<link rel="stylesheet" type="text/css" href="css/ionic.css">
+<body ng-controller="indexCtrl">
+<div class="bar bar-header">
+<div class="h1 title">复选框</div>
+</div>
+<ion-content>
+<ul class="list">
+<li class="item item-checkbox">
+<label class="checkbox">
+<input type="checkbox" checked="">
+</label>
+Flux Capacitor
+</li>
+<li class="item item-checkbox">
+<label class="checkbox">
+<input type="checkbox" checked="">
+</label>
+1.21 Gigawatts
+</li>
+<li class="item item-checkbox">
+<label class="checkbox">
+<input type="checkbox" checked="">
+</label>
+Delorean
+</li>
+<li class="item item-checkbox">
+<label class="checkbox">
+<input type="checkbox" checked="">
+</label>
+88 MPH
+</li>
+<li class="item item-checkbox">
+<label class="checkbox">
+<input type="checkbox">
+</label>
+Plutonium Resupply
+</li>
+</ul>
+	
+	<!-- 切换 -->
+	<ion-list class="list">
+		<ion-item class="item item-toggle">
+			HTML5
+		<label class="toggle toggle-assertive">
+			<!-- ng-model需要绑定到其父作用域上 -->
+			<input type="checkbox" ng-model="$parent.ck">
+			<div class="track">
+				<div class="handle"></div>
+			</div>
+		</label>
+		</ion-item>
+	</ion-list>
+	{{ck}}
+	
+	<!-- 复选框 -->
+	<ion-list>
+		<ion-checkbox ng-model="filter.blue">Red</ion-checkbox>
+		<ion-checkbox ng-model="filter.yellow">Yellow</ion-checkbox>
+		<ion-checkbox ng-model="filter.pink">Pink</ion-checkbox>
+	</ion-list>
+
+	<!-- 单选框 -->
+	<ion-list>
+		<ion-radio ng-model="choice" ng-value="'A'">Choose A</ion-radio>
+		<ion-radio ng-model="choice" ng-value="'B'">Choose B</ion-radio>
+    </ion-list>
+	<!-- 滑块 -->
+	<div class="item range">
+		<i class="icon ion-volume-low"></i>
+		<input type="range" name="volume">
+		<i class="icon ion-volume-high"></i>
+	</div>
+
+	<div class="list">
+	  <div class="item range range-positive">
+	    <i class="icon ion-ios-sunny-outline"></i>
+	    <input type="range" name="volume" min="0" max="100" value="33">
+	    <i class="icon ion-ios-sunny"></i>
+	  </div>
+	</div>
+		<!-- select -->
+	  	<div class="list">
+
+          <div class="item item-input item-select">
+            <div class="input-label">
+              Lightsaber
+            </div>
+            <select>
+              <option>Blue</option>
+              <option selected="">Green</option>
+              <option>Red</option>
+            </select>
+          </div>
+        </div>
+	
+	<!-- 选项卡 -->
+    <div class="tabs tabs-icon-top">
+		  <a class="tab-item">
+		    <i class="icon ion-home"></i>
+		    主页
+		  </a>
+		  <a class="tab-item">
+		    <i class="icon ion-star"></i>
+		    收藏
+		  </a>
+		  <a class="tab-item">
+		    <i class="icon ion-gear-a"></i>
+		    设置
+		  </a>
+	</div>
+
+</ion-content>
+
+<script>
+	var app = angular.module('wem',['ionic']);
+	app.controller('indexCtrl',function($scope){
+	$scope.ck = false;
+	})
+</script>
+
+</html>

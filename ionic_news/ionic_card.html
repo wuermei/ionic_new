@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="wem">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width"/>
+	<title>IONIC初学</title>
+</head>
+<!-- ionic的框架 -->
+<script src="js/ionic.bundle.js"></script>
+<!-- ionic的样式 -->
+<link rel="stylesheet" type="text/css" href="css/ionic.css">
+<body ng-controller="indexCtrl">
+	<ion-list class="list card">
+
+		<ion-item class="item item-avatar">
+		    <img src="images/pic.jpg">
+		    <h2>宋仲基</h2>
+		    <p>1985年9月19日</p>
+		</ion-item>
+
+	    <ion-item class="item item-body">
+		    <img class="full-image" src="images/pic.jpg">
+		    <p>
+			    出生于韩国大田广域市，韩国演员、主持人。2008年出演电影《霜花店》进入演艺圈，之后在电视剧、电影、综艺主持多方发展。2009年在音乐节目Music Bank中担任主持，后在艺能节目《Running man》中担任固定嘉宾（E01——E41）。2010年出演电视剧《成均馆绯闻》具龙河一角，获得KBS演技大赏最佳人气奖。2011年在电视剧《树大根深》中饰演青年世宗... >>>
+		    </p>
+		    <p>
+			    <a href="#" class="subdued">1 Like</a>
+			    <a href="#" class="subdued">5 Comments</a>
+		    </p>
+	    </ion-item>
+
+	</ion-list>
+
+
+<script>
+	var app = angular.module('wem',['ionic']);
+	app.controller('indexCtrl',function($scope){
+
+	})
+
+</script>
+	
+</html>

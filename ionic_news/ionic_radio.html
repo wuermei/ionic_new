@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="wem">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width"/>
+	<title>ionic_js</title>
+</head>
+<!-- ionic的框架 -->
+<script src="js/ionic.bundle.js"></script>
+<!-- ionic的样式 -->
+<link rel="stylesheet" type="text/css" href="css/ionic.css">
+<body ng-controller='indexCtrl'>
+	{{name}}
+	<!-- 复选框 -->
+	<ion-checkbox ng-model="isChecked"></ion-checkbox>
+	<ion-checkbox ng-model="isChecked1"></ion-checkbox>
+	<ion-checkbox ng-model="isChecked2"></ion-checkbox>
+	<!-- 单选按钮 --> 
+	<ion-radio ng-model="choose" value="A">A</ion-radio>
+	<ion-radio ng-model="choose" value="B">B</ion-radio>
+	<ion-radio ng-model="choose" value="C">C</ion-radio>
+</body>
+<script>
+	var app = angular.module('wem',['ionic']);
+	app.controller('indexCtrl',function($scope){
+		$scope.name = 'wem';
+		$scope.$watch('isChecked',function(data){
+			console.log(data);
+		})
+		$scope.$watch('choose',function(data){
+			console.log(data); 
+		})
+	})
+</script>
+</html>

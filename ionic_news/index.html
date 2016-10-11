@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="wem">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width"/>
+	<link rel="shortcut icon" type="text/css" href="images/news.ico">
+	<title>IONIC初学-新闻接口</title>
+</head>
+<!-- ionic的框架 -->
+<script src="js/ionic.bundle.js"></script>
+<!-- ionic的样式 -->
+<link rel="stylesheet" type="text/css" href="css/ionic.css">
+<body ng-controller="indexCtrl">
+	<!-- 头部 -->
+	<ion-header-bar class="bar-assertive">
+		<!-- 头部左边的按钮 -->
+		<!-- <button class="button icon-left ion-home">Home</button> -->
+		<button class="button button-icon icon ion-ios-minus-outline" ng-click="isShowDelete=!isShowDelete;isShowReorder=false"></button>
+		<h1 class="title">everyday news</h1>
+		<!-- 头部右边的按钮 -->
+		<button class="button icon-right ion-navicon" ng-click="isShowReorder=!isShowReorder; isShowDelete=false">Reorder</button>
+	</ion-header-bar>
+	<!-- 内容区 是一个可以滚动的窗口 -->
+	<ion-content>
+		<!-- 下拉刷新组件 -->
+		<ion-refresher pulling-text="下拉刷新。。。" refreshing-text="刷新完成。。。" on-refresh="loadMore()"></ion-refresher>
+		<!-- 列表 相当于ul li-->
+		<!-- can-swipe => <ion-option-button> -->
+		<!-- show-reorder => <ion-reorder-button> -->
+		<!-- show-delete => <ion-delete-button> -->
+		<ion-list class="list" show-reorder="isShowReorder" show-delete="isShowDelete">
+			<!-- <ion-item class="item" ng-repeat="item in items">{{item}}</ion-item> -->
+			<ion-item class="item item-thumbnail-left" ng-repeat="newm in news" newm="newm" class="item-remove-animate"  href="{{newm.url}}">
+				<img ng-src="{{newm.thumbnail_pic_s}}">
+				<h2>{{newm.realtype}}</h2>
+				<p>{{newm.title}}</p>
+				<!-- 左滑出现按钮 -->
+				<ion-option-button ng-click="share()">
+					分享
+				</ion-option-button>
+				<ion-option-button ng-click="id({{newm.uniquekey}})">
+					uniquekey
+				</ion-option-button>
+				<!-- 排序必须按住排序按钮才可以拖拽 点击头部的排序按钮切换 {{$index}}-->
+			    <ion-delete-button class="ion-minus-circled"  ng-click="onItemDelete(newm)">
+                </ion-delete-button>
+				<ion-reorder-button class="ion-navicon"  on-reorder="moveItem(newm, $fromIndex, $toIndex)">
+				</ion-reorder-button>
+			</ion-item>
+		</ion-list>
+	</ion-content>
+	<!-- 底部	 -->
+	<ion-footer-bar class="bar-assertive">
+		<h1 class="title">Footer</h1>
+	</ion-footer-bar>
+</body>
+<script>
+	var app = angular.module('wem',['ionic']);
+	app.controller('indexCtrl',function($scope,$timeout,$http){
+		
+		$scope.share = function(){
+			alert("分享给好友");
+		};
+		
+		$scope.id = function(a){
+			alert("uniquekey:" + a);
+		};
+		
+		// splice从数组中删除元素
+		//直接用下标，只有第一个准确，其余的删除的是当前的下一个
+	    /*$scope.onItemDelete = function(index) {
+	    	console.log(index);
+    		$scope.news.splice(index,1);
+  		};*/
+		$scope.onItemDelete = function(newm) {
+	    	//console.log(newm);
+	    	//indexOf() 方法可返回某个指定的字符串(数组)值在字符串(数组)中首次出现的位置。
+	    	//console.log($scope.news.indexOf(newm));
+    		$scope.news.splice($scope.news.indexOf(newm),1);
+  		};
+
+		$scope.moveItem = function(newm, fromIndex, toIndex) {
+			$scope.news.splice(fromIndex, 1);
+			$scope.news.splice(toIndex, 0, newm);
+  		};
+
+		$scope.isShowDelete = false;
+		$scope.isShowReorder = false;
+		// $scope.items = [];                            
+		$scope.loadMore = function(){
+			/*var j = 0;
+			for(; j < 5; j++){
+				$scope.items.push(Math.random()*10);
+			}
+			console.log("我已经接受完数据了");
+			// 停止广播ion-refresher,即让loading弹回去
+			// $scope.$broadcast('scroll.refreshComplete');
+			$timeout(function(){
+				$scope.$broadcast('scroll.refreshComplete');
+			},1000)*/
+			$http.jsonp('news.php',{
+			params:{
+				type: 'top',
+				callback:'JSON_CALLBACK'
+				
+			}
+			}).success(function(data){
+				$scope.news = data.result.data;
+				console.log($scope.news);
+			}).finally(function(){
+				$scope.$broadcast('scroll.refreshComplete');
+			});
+		};
+	});
+</script>
+</html>
